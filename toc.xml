@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Addon Author="NeoTron" APIVersion="8" Name="Dear Cupcake" Description="Adds private notes to the guild roster.">
+  <Script Name="Libs/GeminiAddon/GeminiAddon.lua"/>
+  <Script Name="Libs/GeminiHook/GeminiHook-1.0.lua"/>
+  <Script Name="Libs/GeminiDB/GeminiDB-1.0.lua"/>
+  <Script Name="Libs/GeminiLogging/GeminiLogging.lua"/>
+  <Script Name="Libs/GeminiGUI/GeminiGUI.lua"/>
+  <Form Name="Options.xml"/>  
+  <Script Name="Cupcake.lua"/>
+</Addon>
