@@ -31,7 +31,6 @@ function Cupcake:OnGenerateGridTooltip(luaCaller, wndHandler, wndControl, eType,
 	 tooltip = tooltip .. "\nPrivate Note: "..privateNote
       end
    end
-   log:info(tooltip)
    self.grid = grid
    wndHandler:SetTooltip(tooltip)
 end
