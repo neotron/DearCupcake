@@ -20,8 +20,13 @@ function Cupcake:OnEnable()
    self:Hook(self.roster, "ResetRosterMemberButtons")
 end
 
+function Cupcake:GetWndMain()
+   self.wndMain = self.wndMain or self.roster.tWndRefs.wndMain
+   return self.wndMain
+end
+      
 function Cupcake:OnGenerateGridTooltip(luaCaller, wndHandler, wndControl, eType, iRow, iColumn)
-   local grid = luaCaller.wndMain:FindChild("RosterGrid")
+   local grid = self:GetWndMain():FindChild("RosterGrid")
    local tooltip = grid:GetCellData(iRow + 1, 8) or ""
    local user = grid:GetCellData(iRow + 1, 1)
    if user then 
@@ -49,7 +54,9 @@ function Cupcake:UpdateRow(grid, row, tCurr)
 end
 
 function Cupcake:ResetRosterMemberButtons(luaCaller)
-   local grid = luaCaller.wndMain:FindChild("RosterGrid")
+   SendVarToRover("caller", luaCaller)
+   local wndMain = self:GetWndMain()
+   local grid = wndMain:FindChild("RosterGrid")
    local tSel = grid:GetData()
    local selectedRow 
    for i = 1,grid:GetRowCount() do
@@ -63,7 +70,7 @@ function Cupcake:ResetRosterMemberButtons(luaCaller)
    self:OnCloseClick() -- destroy old UI
    if tSel then
       local note = self.db.realm.notes[tSel.strName] 
-      self.noteUI = GeminiGUI:Create(Cupcake.tPrivateNoteDef):GetInstance(self, luaCaller.wndMain)
+      self.noteUI = GeminiGUI:Create(Cupcake.tPrivateNoteDef):GetInstance(self, wndMain)
       local editBox = self.noteUI:FindChild("EditBox")
       editBox:SetText(note or "")
       editBox:SetData({ tSel =  tSel, row = selectedRow })
@@ -90,7 +97,8 @@ function Cupcake:OnUpdateNote()
 	 self.db.realm.notes[name] = nil
       end
       if needRebuild then
-	 local grid = self.roster.wndMain:FindChild("RosterGrid")
+         
+	 local grid = self:GetWndMain():FindChild("RosterGrid")
 	 self:UpdateRow(grid, data.row, data.tSel)
       end
    end
