@@ -54,7 +54,6 @@ function Cupcake:UpdateRow(grid, row, tCurr)
 end
 
 function Cupcake:ResetRosterMemberButtons(luaCaller)
-   SendVarToRover("caller", luaCaller)
    local wndMain = self:GetWndMain()
    local grid = wndMain:FindChild("RosterGrid")
    local tSel = grid:GetData()
